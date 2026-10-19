@@ -1118,6 +1118,8 @@ namespace MyThirdOgre
 				mClearBuffersComputeJob->setThreadsPerGroup(mThreadsPerGroupX, mThreadsPerGroupY, mThreadsPerGroupZ);
 				mClearBuffersComputeJob->setNumThreadGroups(mThreadGroupCountX, mThreadGroupCountY, mThreadGroupCountZ);
 
+				// This was a triumph. I'm making a note here: Huge Success.
+
 				Ogre::ShaderParams& shaderParams = mClearBuffersComputeJob->getShaderParams("default");
 
 				Ogre::ShaderParams::Param* texResolution = shaderParams.findParameter("texResolution");
