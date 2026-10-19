@@ -1,0 +1,71 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Configure MyThirdOgre (VS 2026 Release)",
+      "type": "process",
+      "command": "${config:cmake.cmakePath}",
+      "args": [
+        "--preset",
+        "x64-Release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build MyThirdOgre (VS 2026 Release)",
+      "type": "process",
+      "command": "${config:cmake.cmakePath}",
+      "args": [
+        "--build",
+        "--preset",
+        "x64-Release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile",
+      "dependsOn": "Configure MyThirdOgre (VS 2026 Release)",
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "Configure MyThirdOgre (VS 2026 Debug)",
+      "type": "process",
+      "command": "${config:cmake.cmakePath}",
+      "args": [
+        "--preset",
+        "x64-Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Build MyThirdOgre (VS 2026 Debug)",
+      "type": "process",
+      "command": "${config:cmake.cmakePath}",
+      "args": [
+        "--build",
+        "--preset",
+        "x64-Debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$msCompile",
+      "dependsOn": "Configure MyThirdOgre (VS 2026 Debug)",
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

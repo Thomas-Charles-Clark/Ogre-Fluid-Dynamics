@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "MyThirdOgre (Release)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/out/build/x64-Release/Release/MyThirdOgre.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/out/build/x64-Release/Release",
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "${workspaceFolder}/../ogre-next/build/bin/Release;C:/Program Files (x86)/SDL2/lib/x64;${workspaceFolder}/../../LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK/lib/x64;${env:PATH}"
+        }
+      ],
+      "console": "integratedTerminal",
+      "preLaunchTask": "Build MyThirdOgre (VS 2026 Release)"
+    },
+    {
+      "name": "MyThirdOgre (Debug)",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/out/build/x64-Debug/Debug/MyThirdOgre.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/out/build/x64-Debug/Debug",
+      "environment": [
+        {
+          "name": "PATH",
+          "value": "${workspaceFolder}/../ogre-next/build/bin/Debug;C:/Program Files (x86)/SDL2/lib/x64;${workspaceFolder}/../../LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK/lib/x64;${env:PATH}"
+        }
+      ],
+      "console": "integratedTerminal",
+      "preLaunchTask": "Build MyThirdOgre (VS 2026 Debug)"
+    }
+  ]
+}

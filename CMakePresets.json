@@ -1,0 +1,76 @@
+{
+  "version": 4,
+  "cmakeMinimumRequired": {
+    "major": 4,
+    "minor": 0,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "windows-base",
+      "hidden": true,
+      "displayName": "Windows x64 Debug",
+      "description": "Target Windows x64 with MSVC",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "OGRE_SOURCE": "D:/source/repos/ogre/ogre-next",
+        "OGRE_BINARIES": "D:/source/repos/ogre/ogre-next/build",
+        "OGRE_NEXT_DEPS_RAPIDJSON": "D:/source/repos/ogre/ogre-next-deps/src/rapidjson/include",
+
+        "SDL2_DIR": "C:/Program Files (x86)/SDL2/lib/cmake/SDL2",
+
+        "SDL2_INCLUDE_DIR": "C:/Program Files (x86)/SDL2/include/SDL2",
+        "SDL2_INCLUDE_DIRS": "C:/Program Files (x86)/SDL2/include/SDL2",
+        "SDL2_LIBRARIES": "C:/Program Files (x86)/SDL2/lib/x64/SDL2.lib;C:/Program Files (x86)/SDL2/lib/x64/SDL2main.lib",
+        "SDL2_LIBRARY": "C:/Program Files (x86)/SDL2/lib/x64/SDL2.lib",
+        "SDL2MAIN_LIBRARY": "C:/Program Files (x86)/SDL2/lib/x64/SDL2main.lib",
+
+        "LEAP_SDK": "D:/source/repos/LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK",
+        "LEAP_SDK_INCLUDE_DIR": "D:/source/repos/LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK/include"
+      },
+      "environment": {
+        "SDL2_DIR": "C:/Program Files (x86)/SDL2/lib/cmake/SDL2",
+        "SDL2_INCLUDE_DIR": "C:/Program Files (x86)/SDL2/include/SDL2",
+        "SDL2_INCLUDE_DIRS": "C:/Program Files (x86)/SDL2/include/SDL2",
+        "SDL2_LIBRARIES": "C:/Program Files (x86)/SDL2/lib/x64/SDL2.lib;C:/Program Files (x86)/SDL2/lib/x64/SDL2main.lib",
+        "SDL2_LIBRARY": "C:/Program Files (x86)/SDL2/lib/x64/SDL2.lib",
+        "SDL2MAIN_LIBRARY": "C:/Program Files (x86)/SDL2/lib/x64/SDL2main.lib",
+
+        "LEAP_SDK": "D:/source/repos/LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK",
+        "LEAP_SDK_INCLUDE_DIR": "D:/source/repos/LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK/include"
+      }
+    },
+    {
+      "name": "x64-Debug",
+      "displayName": "x64 Debug",
+      "inherits": "windows-base",
+      "environment": {
+        "PATH": "D:/source/repos/ogre/ogre-next/build/bin/Debug;C:/Program Files (x86)/SDL2/lib/x64;D:/source/repos/LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK/lib/x64;$penv{PATH}"
+      }
+    },
+    {
+      "name": "x64-Release",
+      "displayName": "x64 Release",
+      "inherits": "windows-base",
+      "environment": {
+        "PATH": "D:/source/repos/ogre/ogre-next/build/bin/Release;C:/Program Files (x86)/SDL2/lib/x64;D:/source/repos/LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK/lib/x64;$penv{PATH}"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "x64_Debug",
+      "configurePreset": "x64-Debug",
+      "configuration": "Debug",
+      "targets": [ "ALL_BUILD" ]
+    },
+    {
+      "name": "x64_Release",
+      "configurePreset": "x64-Release",
+      "configuration": "Release",
+      "targets": [ "ALL_BUILD" ]
+    }
+  ]
+}

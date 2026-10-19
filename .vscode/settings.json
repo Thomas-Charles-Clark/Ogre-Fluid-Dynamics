@@ -1,0 +1,6 @@
+{
+  "cmake.cmakePath": "J:/Program Files/Microsoft Visual Studio/18/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
+  "cmake.useCMakePresets": "always",
+  "cmake.configurePreset": "x64-Debug",
+  "cmake.buildPreset": "x64-Debug"
+}

@@ -1,0 +1,32 @@
+# Resources required by the application.
+[Essential]
+Zip=D:/source/repos/Ogre/ogre-next/Samples/Media/packs/DebugPack.zip
+Zip=D:/source/repos/Ogre/ogre-next/Samples/Media/packs/CornellBox.zip
+
+[Popular]
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/2.0/scripts/Compositors
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/models
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/materials/textures
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/materials/textures/Cubemaps
+FileSystem=@MY_THIRD_OGRE_SOURCE_DIR@/src/MyMaterials
+FileSystem=@MY_THIRD_OGRE_SOURCE_DIR@/src/MyMeshes
+FileSystem=@MY_THIRD_OGRE_SOURCE_DIR@/src/MyTextures
+
+[General]
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/2.0/scripts/materials/Common
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/2.0/scripts/materials/Common/Any
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/2.0/scripts/materials/Common/GLSL
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/2.0/scripts/materials/Common/GLSLES
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/2.0/scripts/materials/Common/HLSL
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/2.0/scripts/materials/Common/Metal
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/Hlms/Common/Any
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/Hlms/Common/GLSL
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/Hlms/Common/HLSL
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/Hlms/Common/Metal
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/Compute/Algorithms/IBL
+FileSystem=D:/source/repos/Ogre/ogre-next/Samples/Media/Compute/Tools/Any
+
+# Do not load the media root as a resource; it contains the Hlms templates.
+[Hlms]
+DoNotUseAsResource=D:/source/repos/Ogre/ogre-next/Samples/Media
+ComputeFolder=@MY_THIRD_OGRE_SOURCE_DIR@/src/HLMS/Compute/

@@ -1,0 +1,43 @@
+CMakePresets.json is where the cool kids live
+
+it seems that "binaryDir" is defunct: the default is to build to ${sourceDir}/out/build/${presetName}
+-- I concluded that from having a preset entry which omitted the binaryDir folder, and lo and behold the presetName folder was
+created exactly where I thought it would be
+
+in order for LeapC.h to be found, I MUST provide an environment property containing a property named "LEAP_SDK":
+
+"environment": {
+  "LEAP_SDK": "${sourceDir}/../../LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK"
+}
+
+this still leaves us without binaries: running cannot currently find OgreMain_d.dll for example (and others obviously)+
+
+
+
+// tosh
+    {
+      "name": "windows-base",
+      "displayName": "Windows x64 Base",
+      "description": "Target Windows x64 with MSVC",
+      "generator": "Visual Studio 18 2026",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "OGRE_SOURCE": "${sourceDir}/../ogre-next"
+      },
+      "environment": {
+        "LEAP_SDK": "${sourceDir}/../LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK",
+        "SDL2_INCLUDE_DIR": "C:/Program Files (x86)/SDL2",
+        "PATH": "${sourceDir}/../ogre-next/build;${sourceDir}/../../LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK/lib/x64;C:/Program Files (x86)/SDL2/lib/x64;$penv{PATH}"
+      }
+    },
+	
+	
+	
+	,
+      "environment": {
+        "LEAP_SDK": "${sourceDir}/../LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK",
+        "SDL2_INCLUDE_DIR": "C:/Program Files (x86)/SDL2",
+        "PATH": "${sourceDir}/../ogre-next/build;${sourceDir}/../../LeapDeveloperKit/LeapDeveloperKit_4.1.0+52211_win/LeapSDK/lib/x64;C:/Program Files (x86)/SDL2/lib/x64;$penv{PATH}"
+      }
+    
