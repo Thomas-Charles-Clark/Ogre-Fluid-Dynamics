@@ -25,31 +25,34 @@ void main
     uint3 gl_GlobalInvocationID : SV_DispatchThreadId
 )
 {
-	if( gl_GlobalInvocationID.x < texResolution.x && gl_GlobalInvocationID.y < texResolution.y)
-	{
-		uint rwIdx = gl_GlobalInvocationID.y * texResolution.x + gl_GlobalInvocationID.x;
+    if (gl_GlobalInvocationID.x < texResolution.x &&
+        gl_GlobalInvocationID.y < texResolution.y)
+        //&& gl_GlobalInvocationID.z < texResolution.z)
+    {
+        uint rwIdx = gl_GlobalInvocationID.y * texResolution.x + gl_GlobalInvocationID.x;
 		
-		float4 zero = float4(0, 0, 0, 0);
-
-		//Particle p = inputUavBuffer[rwIdx];
-
-		//velocityTexture[gl_GlobalInvocationID] *= velocityDissipationConstant;
+        float4 zero = float4(0, 0, 0, 0);
 		
-		if (inkTexture[gl_GlobalInvocationID].w > 0) {
-			inkTexture[gl_GlobalInvocationID] = float4(inkTexture[gl_GlobalInvocationID].xyz, inkTexture[gl_GlobalInvocationID].w - timeSinceLast);
-		}
-		else {
-			if (length(inkTexture[gl_GlobalInvocationID].xyz) > 0.01) {
-				inkTexture[gl_GlobalInvocationID] = float4(inkTexture[gl_GlobalInvocationID].xyz, 0);
-			}
-			else {
-				inkTexture[gl_GlobalInvocationID] = zero;
-			}
-		}
-
-		pressureTexture[gl_GlobalInvocationID] = zero;
-		divergenceTexture[gl_GlobalInvocationID] = zero;
-
-		//velocityTexture[gl_GlobalInvocationID] = zero;
-	}
+        float4 currentInk = inkTexture[gl_GlobalInvocationID];
+		
+        if (currentInk.w > 0)
+        {
+            currentInk.w -= timeSinceLast;
+        }
+        else
+        {
+            if (dot(currentInk.xyz, currentInk.xyz) > 0.0001f)
+            {
+                currentInk.w = 0.0f;
+            }
+            else
+            {
+                currentInk = zero;
+            }
+        }
+        
+        inkTexture[gl_GlobalInvocationID] = currentInk;
+        pressureTexture[gl_GlobalInvocationID] = zero;
+        divergenceTexture[gl_GlobalInvocationID] = zero;
+    }
 }

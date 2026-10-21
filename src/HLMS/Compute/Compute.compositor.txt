@@ -1,0 +1,1269 @@
+compositor_node TestComputeNode
+{
+	in 0 renderTarget
+	in 1 velocityTexture
+	in 2 inkTexture
+	in 3 pressureTexture
+	in 4 divergenceTexture
+	in_buffer 0 inputUavBuffer
+
+	texture advectedVelocity target_width target_height 1 PFG_RGBA32_FLOAT uav 3d depth_pool 0
+	texture advectedInk target_width target_height 1 PFG_RGBA32_FLOAT uav 3d depth_pool 0
+	texture velocityDiffusionA target_width target_height 1 PFG_RGBA32_FLOAT uav 3d depth_pool 0
+	texture velocityDiffusionB target_width target_height 1 PFG_RGBA32_FLOAT uav 3d depth_pool 0
+	texture velocityProjection target_width target_height 1 PFG_RGBA32_FLOAT uav 3d depth_pool 0
+	texture pressureScratch target_width target_height 1 PFG_RGBA32_FLOAT uav 3d depth_pool 0
+	texture vorticityTexture target_width target_height 1 PFG_R32_FLOAT uav 3d depth_pool 0
+
+	buffer temporaryBuffer 1 4 target_width target_height
+
+	target
+	{
+		pass compute
+		{
+			job ClearBuffers
+			uav_buffer 0 inputUavBuffer write
+			uav 1 inkTexture write
+			uav 2 velocityTexture write
+			uav 3 divergenceTexture write
+			uav 4 pressureTexture write
+		}
+
+		pass compute
+		{
+			job AddImpulses
+			uav_buffer 0 inputUavBuffer read
+			uav 1 velocityTexture write
+			uav 2 inkTexture write
+		}
+
+		pass compute
+		{
+			job Advection
+			input 0 velocityTexture read
+			input 1 inkTexture read
+			uav 0 advectedVelocity write
+			uav 1 advectedInk write
+		}
+
+		pass compute
+		{
+			job CopyAdvectedInk
+			input 0 advectedInk read
+			uav 0 inkTexture write
+		}
+
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 advectedVelocity read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 advectedVelocity read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 advectedVelocity read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 advectedVelocity read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionB read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionA write
+		}
+		pass compute
+		{
+			job JacobiDiffusion
+			input 0 velocityDiffusionA read
+			input 1 advectedVelocity read
+			uav 0 velocityDiffusionB write
+		}
+
+		pass compute
+		{
+			job Divergence
+			input 0 velocityDiffusionB read
+			uav 0 divergenceTexture write
+		}
+
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureTexture read
+			input 1 divergenceTexture read
+			uav 0 pressureScratch write
+		}
+		pass compute
+		{
+			job JacobiPressure
+			input 0 pressureScratch read
+			input 1 divergenceTexture read
+			uav 0 pressureTexture write
+		}
+
+		pass compute
+		{
+			job SubtractPressureGradient
+			input 0 pressureTexture read
+			input 1 velocityDiffusionB read
+			uav 0 velocityProjection write
+		}
+
+		pass compute
+		{
+			job VorticityComputation
+			input 0 velocityProjection read
+			uav 0 vorticityTexture write
+		}
+
+		pass compute
+		{
+			job VorticityConfinement
+			input 0 vorticityTexture read
+			input 1 velocityProjection read
+			uav 0 velocityTexture write
+		}
+
+		pass compute
+		{
+			job BoundaryConditions
+			uav 0 velocityTexture read write
+		}
+
+		pass compute
+		{
+			job Render
+			uav_buffer 0 temporaryBuffer write
+			uav 1 velocityTexture read write
+			uav 2 inkTexture read write
+			uav 3 pressureTexture read write
+			uav 4 vorticityTexture read write
+		}
+
+	}
+
+	target vorticityTexture
+	{
+		pass clear
+		{
+			colour_value 0 0 0 1
+		}
+	}
+
+	target renderTarget
+	{
+		pass clear
+		{
+			colour_value 0 0 0 1
+		}
+
+		pass bind_uav
+		{
+			starting_slot 1
+			uav_buffer 0 temporaryBuffer read
+			uav_buffer 1 inputUavBuffer read
+		}
+
+		pass render_quad
+		{
+			material DrawFromUavBuffer
+			uses_uav 0 read
+		}
+
+		pass bind_uav
+		{
+		}
+	}
+}
+
+workspace "Test Compute Workspace"
+{
+	connect_buffer_external 0 TestComputeNode 0
+	connect_external 1 TestComputeNode 1
+	connect_external 2 TestComputeNode 2
+	connect_external 3 TestComputeNode 3
+	connect_external 4 TestComputeNode 4
+
+	connect_output TestComputeNode 0
+}

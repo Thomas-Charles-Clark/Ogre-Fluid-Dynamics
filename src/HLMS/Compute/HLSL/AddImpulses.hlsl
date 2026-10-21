@@ -41,24 +41,9 @@ void main
 		float4 ink = float4(inputUavBuffer[rwIdx].ink, 0, 0, inputUavBuffer[rwIdx].inkLifetime);
 
 		float width = texResolution.x;
-
-		//if (ink.z > 0) {
-		//} 
-
-		//if (ink.z < 0) {
-		//	ink.x = -5.0f;
-		//}
-
-		//ink.z -= timeSinceLast;
-
-		//if (ink.z < -10.0f) {
-		//	ink.z = 0;
-		//}
 		
 		inkTexture[gl_GlobalInvocationID] += ink;
 		
-		//inkTexture[gl_GlobalInvocationID] += float4(inputUavBuffer[rwIdx].ink, 0, 0, inputUavBuffer[rwIdx].inkLifetime);
-
 		velocityTexture[gl_GlobalInvocationID] += velocity;
 	}
 }
